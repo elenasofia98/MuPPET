@@ -36,9 +36,8 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-pl-bench
-pl-bench/*
-requirements.txt
+muppet-bench
+muppet-bench/*
 
 env.json
 

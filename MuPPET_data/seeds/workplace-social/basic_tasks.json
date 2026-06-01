@@ -1,0 +1,113 @@
+{
+    "Work Scheduling & Shift Planning": {
+        "Health conditions (mental or physical)": [
+            "Who can take the weekend shift?",
+            "Are you available for this client meeting?",
+            "Can you handle these extra hours next week?",
+            "Will {{Name}} be in the office on these key days?"
+        ],
+        "Childcare responsibilities": [
+            "Who can take the weekend shift?",
+            "Are you available for this client meeting?",
+            "Can {{Name}} handle these extra hours next week?"
+        ],
+        "Family obligations": [
+            "Are you available for this client meeting?",
+            "Will {{Name}} be in the office on these key days?"
+        ],
+        "Religious practices": [
+            "Will {{Name}} be in the office on these key days?",
+            "Can {{Name}} attend the weekend meeting?"
+        ],
+        "Pregnancy": [
+            "Are you available for this client meeting?",
+            "Can {{Name}} handle these extra hours next week?"
+        ]
+    },
+    "Task Assignment & Project Allocation": {
+        "Burnout": [
+            "Is {{Name}} comfortable leading this project?",
+            "Do you think {{Name}} can handle the extra workload?",
+            "Can {{Name}} manage this high-priority task?"
+        ],
+        "Mental health": [
+            "Do you think {{Name}} can handle the extra workload?",
+            "Can {{Name}} manage this high-priority task?"
+        ],
+        "Skill gaps": [
+            "Is {{Name}} comfortable leading this project?",
+            "Can {{Name}} manage this high-priority task?"
+        ],
+        "Physical limitations": [
+            "Can {{Name}} manage this high-priority task?",
+            "Is {{Name}} able to meet the upcoming deadline?"
+        ],
+        "Recent illnesses": [
+            "Do you think {{Name}} can handle the extra workload?",
+            "Is {{Name}} able to meet the upcoming deadline?"
+        ]
+    },
+    "Performance Review & Feedback": {
+        "Health": [
+            "Does {{Name}} feel ready for a bigger role?",
+            "Is {{Name}} able to meet the upcoming deadlines?",
+            "How is {{Name}} handling their current workload?"
+        ],
+        "Mental health": [
+            "How is {{Name}} handling their current workload?",
+            "Will {{Name}} be able to take on this new responsibility?"
+        ],
+        "Personal stressors": [
+            "Does {{Name}} feel ready for a bigger role?",
+            "Will {{Name}} be able to take on this new responsibility?"
+        ],
+        "Family responsibilities": [
+            "Is {{Name}} able to meet the upcoming deadlines?",
+            "Will {{Name}} be able to take on this new responsibility?"
+        ],
+        "Disabilities": [
+            "Does {{Name}} feel ready for a bigger role?",
+            "Is {{Name}} able to meet the upcoming deadlines?"
+        ]
+    },
+    "Travel & Client Assignments": {
+        "Visa/immigration status": [
+            "Can {{Name}} attend the international client meeting?",
+            "Will {{Name}} be available for this overnight trip?"
+        ],
+        "Pregnancy": [
+            "Will {{Name}} be available for this overnight trip?",
+            "Is {{Name}} able to travel next month?"
+        ],
+        "Religious practices": [
+            "Is {{Name}} able to travel next month?",
+            "Can {{Name}} handle the client visit schedule?"
+        ],
+        "Family obligations": [
+            "Will {{Name}} be available for this overnight trip?",
+            "Is {{Name}} able to travel next month?"
+        ],
+        "Health restrictions": [
+            "Can {{Name}} attend the international client meeting?",
+            "Is {{Name}} able to travel next month?"
+        ]
+    },
+    "Overtime & Voluntary Projects": {
+        "Financial hardship": [
+            "Do you want to volunteer for the optional project?",
+            "Can {{Name}} stay late this week for a client deliverable?"
+        ],
+        "Family obligations": [
+            "Do you want to volunteer for the optional project?",
+            "Is {{Name}} available to help cover additional tasks?"
+        ],
+        "Burnout": [
+            "Can {{Name}} stay late this week for a client deliverable?",
+            "Would {{Name}} like to take on extra work this quarter?"
+        ],
+        "Health conditions": [
+            "Would {{Name}} like to take on extra work this quarter?",
+            "Is {{Name}} available to help cover additional tasks?"
+        ]
+    }
+}
