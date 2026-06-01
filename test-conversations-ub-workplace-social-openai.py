@@ -2,12 +2,11 @@
 # coding: utf-8
 
 import os
-from google.genai import Client
-from google.genai.types import HttpOptions
 
 from prompt_utils.build_prompt import build_system_prompt, build_user_prompt
 from dataset import Dataset
 from conversation_runner import generate_all
+from agents import OpenAIAgent
 
 CONFIG = '-ub'
 MODALITY = '-bc'
@@ -30,16 +29,11 @@ print(len(conversations))
 print(data.head())
 print(len(data))
 
-GEMINI_TIMEOUT = 1.5 * 60 * 1000  # 1 minutes
 
-client = Client(
-    project=Dataset.load_json('env.json')['PROJECT_NAME'],
-    vertexai=True,
-    location='global',
-    http_options=HttpOptions(timeout=GEMINI_TIMEOUT),
-)
 
-model_names = ["gemini-2.5-pro"]
+os.environ['OPENAI_API_KEY'] = load_json('env.json')['STAI_OPENAI']
+
+model_names = ["gpt-5.5"]
 
 redo = False
 
@@ -69,12 +63,17 @@ for model_name in model_names:
                 task_type=TASK_TYPE,
                 model_name=model_name,
                 output_dir=OUTPUT_DIR,
-                client=client,
+                client=None,
                 build_system_prompt=build_system_prompt,
                 build_user_prompt=build_user_prompt,
                 load_json=load_json,
                 save_json=save_json,
                 temperature=TEMPERATURE[model_name],
+                agent_factory=OpenAIAgent,
+                agent_input_formatter=lambda system_prompt, user_prompt: [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
             )
             save_json(responses, OUTPUT_PATH)
     elif not os.path.exists(OUTPUT_PATH) or redo:
@@ -86,12 +85,17 @@ for model_name in model_names:
             task_type=TASK_TYPE,
             model_name=model_name,
             output_dir=OUTPUT_DIR,
-            client=client,
+            client=None,
             build_system_prompt=build_system_prompt,
             build_user_prompt=build_user_prompt,
             load_json=load_json,
             save_json=save_json,
             temperature=TEMPERATURE[model_name],
+            agent_factory=OpenAIAgent,
+            agent_input_formatter=lambda system_prompt, user_prompt: [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
         save_json(responses, OUTPUT_PATH)
     else:
