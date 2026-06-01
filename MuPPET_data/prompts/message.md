@@ -1,0 +1,2 @@
+Speaker: {{speaker}}
+Message: {{content}}
