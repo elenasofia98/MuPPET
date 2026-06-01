@@ -99,7 +99,7 @@ def generate_all(
 
     current_b = 0 if last_batch is None else last_batch + 1
     responses = []
-    agent = agent_factory(model_name, temperature)
+    agent = agent_factory(client, model_name, temperature)
 
     for i, row in tqdm.tqdm(data.iterrows()):
         if i < len(all_responses):
@@ -181,7 +181,7 @@ def generate_all(
             print(e)
             sleep(10)
             try:
-                response = agent.generate(system_prompt, user_prompt, verbose=i == 0)
+                response = _call_agent_generate(agent, agent_input, verbose=i == 0)
                 responses.append({'idx': i, 'secret': row['secret'], 'task': row['topic'], 'content': response})
             except httpx.ReadTimeout as e:
                 print(e)
