@@ -5,7 +5,7 @@ from dataset import Dataset
 from conversation_runner import generate_all
 from agents import HuggingFaceAgent
 
-cuda_devices = []
+cuda_devices = [0]
 
 CONFIG = '-ub'
 MODALITY = '-bc'
