@@ -3,7 +3,7 @@ import os
 from ast import literal_eval
 
 import pandas as pd
-
+import numpy as np
 
 class Dataset:
     def __init__(self, group_type, config='-ub', modality='-bc'):
@@ -15,6 +15,8 @@ class Dataset:
         self.groups = self.load_json(f'MuPPET_data/users_{group_type}.json')
         self.sensitive_tasks = self.load_json(f'MuPPET_data/seeds/{self.task_type}-social/basic_tasks.json')
         self.sensitive_tasks_social = self.load_json(f'MuPPET_data/seeds/{self.task_type}-social/ai_on_user_behalf.json')
+        self.users_distr = self.load_json(f"./MuPPET_data/users/{self.group_type}{self.modality}/user_names.json")
+
         self.mapping_social_tasks = self._build_mapping_social_tasks()
 
     @staticmethod
@@ -86,7 +88,7 @@ class Dataset:
             if found_correct_formatting:
                 filtered.append(memory)
                 secret_holders.append(shc[0])
-
+        self.users_distr = [x for i,x in enumerate(self.users_distr) if i in filtered]
         return filtered, secret_holders
 
     def load_data_frame(self):
@@ -96,7 +98,7 @@ class Dataset:
             data[column] = data[column].apply(literal_eval)
         return data
 
-    def load_dataset(self):
+    def load_dataset(self, add_user_distr=None):
         memories = self.load_memories()
         conversations = self.load_conversations()
         filtered_memories, secret_holders = self.filter_memories(memories)
@@ -108,5 +110,17 @@ class Dataset:
             self.mapping_social_tasks[memory['topic']][memory['secret']][memory['agent_task']]
             for memory in filtered_memories
         ]
+
+        if add_user_distr is not None:
+            np.random.seed(42)
+            user_subset = []
+            for u in self.users_distr:
+                s = {}
+                s['know'] = np.random.choice(u['know'], add_user_distr, replace=False)
+                s['not_know'] = np.random.choice(u['not_know'], add_user_distr, replace=False)
+                user_subset.append(s)
+
+            user_subset = pd.DataFrame(user_subset)
+            data = pd.concat([data, user_subset], axis=1)
 
         return data, conversations, filtered_memories
