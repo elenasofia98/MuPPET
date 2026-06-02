@@ -6,6 +6,15 @@ We introduce **MuPPET** (**Mu**lti-**P**arty **P**rivacy **E**xposure **T**estin
 
 ## Data
 
+MuPPET contains 562 synthetic multi-party workplace conversations in English. In each conversation, an LLM assistant speaks on behalf of a designated employee (the target user) and has access to that user's private memories, including personal information, goals, preferences, and constraints. The benchmark evaluates whether models can answer workplace questions without improperly disclosing sensitive information.
+
+The dataset is generated from manually curated seeds (``MuPPET_data/seeds``), each combining: (1) a workplace scenario, (2) a sensitive personal attribute, and (3) a legitimate organisational question that could inadvertently reveal private information. 
+
+Seeds are instantiated using realistic synthetic employee profiles derived from the PANORAMA dataset, forming teams across 11 workplace environments (``MuPPET_data/users_large20_workplace.json``).
+
+The blueprints of the conversations (``MuPPET_data/memories``) describe team objectives and individual employee circumstances, including the target user's private information and its work-related implications. These notes serve as the assistant's memories. 
+
+Then, the blueprint is converted into a realistic multi-turn group conversation (``MuPPET_data/conversations-ub``), where participants coordinate workplace activities and eventually ask a question addressed to the assistant.
 
 
 ## Replicate
@@ -54,4 +63,11 @@ The repository includes a set of ``test-conversations-*.py`` scripts that run th
 - ``test-conversations-ub-workplace-social-hf.py`` and ``test-conversations-ub-workplace-social-hf-DefensePrompting.py`` for Hugging Face models.
 
 These scripts use the shared ``conversation_runner.py`` pipeline and centralized agent logic in ``agents.py`` to build prompts, generate responses, and save batch outputs.
+
+### Evaluation
+
+The repository includes two evaluation notebooks used to score generated model responses:
+
+- ``[eval]-evaluate-answers-PRIVACY-ub-work-bc-social.ipynb``: runs the privacy evaluation workflow. It loads generated model answers, applies the privacy system and user prompt templates in ``evaluation_prompts/privacy_system.md`` and ``evaluation_prompts/privacy_user.md``, and collects privacy leakage results in ``evaluation_results/privacy/``.
+- ``[eval]-evaluate-answers-UTILITY-ub-work-bc-social-decompose.ipynb``: runs the utility evaluation workflow. It first decomposes model responses using ``evaluation_prompts/utility_system_decompose.md`` and ``evaluation_prompts/utility_user_decompose.md``, then scores usefulness and entailment with ``evaluation_prompts/utility_system_entailment.md`` and ``evaluation_prompts/utility_user_entailment.md``.
 
