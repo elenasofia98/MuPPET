@@ -1,6 +1,17 @@
 # MuPPET
-
 LLM agents are increasingly deployed in multi-party environments, handling sensitive personal data on behalf of individual users, for instance in group chats. When such an agent discloses private information, it reaches every group member at once. This risk is structurally harder to control than in one-to-one settings, as every piece of private information must be appropriate for every recipient in the group. Yet all existing contextual privacy benchmarks consider only single-interlocutor settings, leaving multi-party privacy risks unmeasured. 
+
+<table align="center">
+  <tr>
+    <td width="600">
+      <img src="teaser.png" width="100%">
+      <p align="center">
+        <em>MuPPET enables evaluation of privacy compliance of LLM assistants in complex, multi-party settings.
+          Information appropriate in a one-on-one context may not be appropriate for a broader audience.</em>
+      </p>
+    </td>
+  </tr>
+</table>
 
 We introduce **MuPPET** (**Mu**lti-**P**arty **P**rivacy **E**xposure **T**esting), a benchmark for contextual privacy in multi-party conversations. Our experiments show that models leak substantially more in multi-party settings than one-to-one evaluations suggest. Frontier models are vulnerable, and smaller open-weights models, often preferred for local deployment with sensitive data, even more so. Existing contextual privacy defences offer only partial protection, degrade utility, and do not resolve the underlying party-tracking problem.
 
@@ -71,3 +82,17 @@ The repository includes two evaluation notebooks used to score generated model r
 - ``[eval]-evaluate-answers-PRIVACY-ub-work-bc-social.ipynb``: runs the privacy evaluation workflow. It loads generated model answers, applies the privacy system and user prompt templates in ``evaluation_prompts/privacy_system.md`` and ``evaluation_prompts/privacy_user.md``, and collects privacy leakage results in ``evaluation_results/privacy/``.
 - ``[eval]-evaluate-answers-UTILITY-ub-work-bc-social-decompose.ipynb``: runs the utility evaluation workflow. It first decomposes model responses using ``evaluation_prompts/utility_system_decompose.md`` and ``evaluation_prompts/utility_user_decompose.md``, then scores usefulness and entailment with ``evaluation_prompts/utility_system_entailment.md`` and ``evaluation_prompts/utility_user_entailment.md``.
 
+## Citation
+
+If you use this work, please cite:
+
+```bibtex
+@misc{ruzzetti2026muppetbenchmarkcontextualprivacy,
+  title={MuPPET: A Benchmark for Contextual Privacy of LLM Assistants in Multi-Party Conversations},
+  author={Elena Sofia Ruzzetti and Cornelius Emde and Sangdoo Yun and Seong Joon Oh and Martin Gubri},
+  year={2026},
+  eprint={2606.23217},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2606.23217}
+}
