@@ -41,6 +41,19 @@ muppet-bench/*
 
 env.json
 
+venv
+venv/*
+
+
+answers_conversations
+answers_conversations/*
+
+generated_data_results
+generated_data_results/*
+
+evaluation_results
+evaluation_results/*
+
 # Unit test / coverage reports
 htmlcov/
 .tox/

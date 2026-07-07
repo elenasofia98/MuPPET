@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 import os
-
-from prompt_utils.build_prompt import build_system_prompt, build_user_prompt
-from dataset import Dataset
-from conversation_runner import generate_all
-from agents import HuggingFaceAgent
-
 cuda_devices = [0]
+
+
+from dataset import Dataset
 
 CONFIG = '-ub'
 MODALITY = '-bc'
@@ -33,12 +30,22 @@ print(len(data))
 os.environ["CUDA_VISIBLE_DEVICES"] = ','.join([str(x) for x in cuda_devices])
 os.environ['HF_TOKEN'] = load_json('env.json')['HF_TOKEN']
 
+
+
+from prompt_utils.build_prompt import build_system_prompt, build_user_prompt
+from conversation_runner import generate_all
+from agents import HuggingFaceAgent
+
+
 model_names = [
     "meta-llama/Meta-Llama-3-8B-Instruct",
     "meta-llama/Meta-Llama-3.1-8B-Instruct",
     "Qwen/Qwen3-4B",
     "Qwen/Qwen3-8B",
     "Qwen/Qwen3-14B",
+    "google/gemma-3-1b-it",
+    "google/gemma-3-4b-it",
+    "google/gemma-3-12b-it",
 ]
 
 model_maps = {}
@@ -113,6 +120,6 @@ for model_name in model_names:
         save_json(responses, OUTPUT_PATH)
     else:
         responses = load_json(OUTPUT_PATH)
-
+    print("Computed", model_name)
     print(len(responses))
 

@@ -33,12 +33,16 @@ Then, the blueprint is converted into a realistic multi-turn group conversation 
 
 ### Enviroment variables
 
-In a file in the main directory ``env.json`` insert the OpenAI API key, ``HF_TOKEN`` and project name for the Google Cloud project.
+In a file in the main directory ``env.json`` insert the OpenAI API key, ``HF_TOKEN`` and project name ``PROJECT_NAME`` for the Google Cloud project.
 
 ### Set up a local enviroment
 Create a local enviroment, e.g. ``python -m venv ./muppet-bench`` and activate it ``source muppet-bench/bin/activate`` (or ``.\muppet-bench\Scripts\activate``).
 
 Then install the requirements: ```pip install -r .\requirements.txt```
+
+For the evaluation, VertexAI agent are used. Create [a project on Google Cloud](https://console.cloud.google.com/welcome). Then, to setup your machine:
+- install the the [Google Cloud CLI](https://docs.cloud.google.com/sdk/docs/install-sdk#deb)
+- then [set up your credentials](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment)
 
 ## Load data
 
@@ -78,7 +82,7 @@ These scripts use the shared ``conversation_runner.py`` pipeline and centralized
 ### Evaluation
 
 The repository includes two evaluation notebooks used to score generated model responses:
-
+- Ensure that the correct enviroment is used as kernel (run ``python -m ipykernel install --user --name muppet-bench --display-name "Python (muppet-bench)"``), that the correct ``PROJECT_NAME`` in the ``env.json`` file, and that you already logged in with your Google Cloud account as specifid [above](#set-up-a-local-enviroment).
 - ``[eval]-evaluate-answers-PRIVACY-ub-work-bc-social.ipynb``: runs the privacy evaluation workflow. It loads generated model answers, applies the privacy system and user prompt templates in ``evaluation_prompts/privacy_system.md`` and ``evaluation_prompts/privacy_user.md``, and collects privacy leakage results in ``evaluation_results/privacy/``.
 - ``[eval]-evaluate-answers-UTILITY-ub-work-bc-social-decompose.ipynb``: runs the utility evaluation workflow. It first decomposes model responses using ``evaluation_prompts/utility_system_decompose.md`` and ``evaluation_prompts/utility_user_decompose.md``, then scores usefulness and entailment with ``evaluation_prompts/utility_system_entailment.md`` and ``evaluation_prompts/utility_user_entailment.md``.
 

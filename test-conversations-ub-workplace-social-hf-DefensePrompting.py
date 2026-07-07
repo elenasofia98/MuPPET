@@ -1,11 +1,8 @@
 import os
+cuda_devices = [1]
 
-from prompt_utils.build_prompt import build_system_prompt, build_user_prompt
+
 from dataset import Dataset
-from conversation_runner import generate_all
-from agents import HuggingFaceAgent
-
-cuda_devices = [0]
 
 CONFIG = '-ub'
 MODALITY = '-bc'
@@ -31,23 +28,30 @@ print(len(data))
 os.environ["CUDA_VISIBLE_DEVICES"] = ','.join([str(x) for x in cuda_devices])
 os.environ['HF_TOKEN'] = load_json('env.json')['HF_TOKEN']
 
+
+
+from prompt_utils.build_prompt import build_system_prompt, build_user_prompt
+from conversation_runner import generate_all
+from agents import HuggingFaceAgent
+
+
 model_names = [
-    "Qwen/Qwen3-4B",
-    
     "meta-llama/Meta-Llama-3-8B-Instruct",
     "meta-llama/Meta-Llama-3.1-8B-Instruct",
     "Qwen/Qwen3-4B",
     "Qwen/Qwen3-8B",
     "Qwen/Qwen3-14B",
+    "google/gemma-3-1b-it",
+    "google/gemma-3-4b-it",
+    "google/gemma-3-12b-it",
 ]
 
-model_names = model_names[:1]
 
 model_maps = {}
 for i, model_name in enumerate(model_names):
     model_maps[model_name] = {"": 0} if i < 5 and len(cuda_devices) > 0 else "auto"
 
-DEFENSE_STRATEGY = 'CIMem_medium'
+DEFENSE_STRATEGY = 'PrivacyChecker'
 
 redo = False
 
